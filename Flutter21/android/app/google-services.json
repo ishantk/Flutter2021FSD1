@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "642400757097",
+    "project_id": "fsd2021b1",
+    "storage_bucket": "fsd2021b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642400757097:android:cea28faa33dc342c2349f8",
+        "android_client_info": {
+          "package_name": "com.auribises.flutterfsdenc21"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642400757097-7l77ea9nhm8ujt8uof8j43rkcmu3g3vv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC_JhzxQnyHwLTb1ncPFZMSMGkaT_8K6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642400757097-7l77ea9nhm8ujt8uof8j43rkcmu3g3vv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
