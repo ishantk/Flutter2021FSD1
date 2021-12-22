@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfsdenc21/auth/login_page.dart';
+import 'package:flutterfsdenc21/auth/register_page.dart';
+import 'package:flutterfsdenc21/auth/splash_page.dart';
 import 'package:flutterfsdenc21/tutorials/bottom_navbar.dart';
 import 'package:flutterfsdenc21/tutorials/constants.dart';
 import 'package:flutterfsdenc21/tutorials/navigation_drawer.dart';
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
       //home: HomePage(),
       //home: QuotesPage(),
       //home: PageOne()
-      initialRoute: "/newsapi",
+      initialRoute: "/splash",
       routes: {
         '/': (context) => PageOne(),
         pageTwoRoute : (context) => PageTwo(),
@@ -62,6 +65,9 @@ class MyApp extends StatelessWidget {
         "/drawer":  (context) => NavigationDrawerPage(),
         "/bottom":  (context) => BottomNavigationPage(),
         "/newsapi":  (context) => NewsPage(),
+        "/splash":   (context) => SplashPage(),
+        "/login":   (context) => LoginPage(),
+        "/register":   (context) => RegisterPage(),
       },
     );
   }
