@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfsdenc21/auth/login_page.dart';
 import 'package:flutterfsdenc21/auth/register_page.dart';
@@ -27,8 +28,15 @@ import 'package:flutterfsdenc21/tutorials/tab_navigation.dart';
 //
 // }
 
-void main() => runApp(const MyApp());
+//void main() => runApp(const MyApp());
 //void main() => runApp(const TabBarPage());
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized(); // This ensures that all the widets in your app required for the main screen are initialized
+  // Before the app runs, we must initialize firebase module :)
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
 
@@ -68,6 +76,7 @@ class MyApp extends StatelessWidget {
         "/splash":   (context) => SplashPage(),
         "/login":   (context) => LoginPage(),
         "/register":   (context) => RegisterPage(),
+        "/home":   (context) => HomePage(),
       },
     );
   }

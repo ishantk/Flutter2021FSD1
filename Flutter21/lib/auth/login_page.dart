@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  bool showLoader = false;
+
   // Key for the Form
   final _formKey = GlobalKey<FormState>();
 
@@ -17,10 +20,30 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
+  void loginUser() async{
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailController.text.trim(),
+          password: passwordController.text.trim());
+      print("User signed In Successfully: " +
+          userCredential.user!.uid.toString());
+
+
+      // Navigate to the Home Page :)
+      if(userCredential.user!.uid.isNotEmpty){
+        Navigator.pushNamed(context, "/home");
+      }
+
+    } on FirebaseAuthException catch(e){
+      print("Exception is: "+e.message.toString());
+      print("Exception Code: "+e.code.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: showLoader ? Center(child: CircularProgressIndicator(),) : Center(
         child: Form(
           key: _formKey,
           child: Padding(
@@ -51,6 +74,45 @@ class _LoginPageState extends State<LoginPage> {
 
                     return null;
                   },
+                  decoration: InputDecoration(
+                    filled: true,
+                    alignLabelWithHint: true,
+                    labelText: "Email ID",
+                    labelStyle: TextStyle(color: Colors.green),
+                    fillColor: Colors.transparent,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.grey)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.black)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.red)),
+                    disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.grey)),
+                    border: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.grey)),
+                    contentPadding:
+                    new EdgeInsets.all(8),
+                  ),
                 ),
                 SizedBox(height: 4,),
                 TextFormField(
@@ -69,12 +131,55 @@ class _LoginPageState extends State<LoginPage> {
 
                     return null;
                   },
+                  decoration: InputDecoration(
+                    filled: true,
+                    alignLabelWithHint: true,
+                    labelText: "Password",
+                    labelStyle: TextStyle(color: Colors.green),
+                    fillColor: Colors.transparent,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.grey)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.black)),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.red)),
+                    disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.grey)),
+                    border: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(
+                            width: 1,
+                            style: BorderStyle.solid,
+                            color: Colors.grey)),
+                    contentPadding: EdgeInsets.all(8)
+                  ),
                 ),
                 SizedBox(height: 4,),
                 OutlinedButton(
                     onPressed: (){
                       if(_formKey.currentState!.validate()){ // ! for null safety check of dart
-                          // Login is successfull :)
+
+                        setState(() {
+                          showLoader = true;
+                          loginUser();
+                        });
+
                       }else{
                         // Validation Failed
                       }
